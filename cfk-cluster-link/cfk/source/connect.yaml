@@ -1,0 +1,42 @@
+apiVersion: platform.confluent.io/v1beta1
+kind: Connect
+metadata:
+  name: connect
+  namespace: source
+spec:
+  replicas: 1
+  image:
+    application: confluentinc/cp-server-connect:7.2.0
+    init: confluentinc/confluent-init-container:2.4.0
+  configOverrides:
+    server:
+      - config.storage.replication.factor=1
+      - offset.storage.replication.factor=1
+      - status.storage.replication.factor=1
+  podTemplate:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+    probe:
+      liveness:
+        periodSeconds: 10
+        failureThreshold: 5
+        timeoutSeconds: 500 
+    podSecurityContext:
+      fsGroup: 1000
+      runAsUser: 1000
+      runAsNonRoot: true 
+  build:
+    type: onDemand
+    onDemand:
+      plugins:
+        locationType: confluentHub
+        confluentHub:
+          - name: kafka-connect-datagen
+            owner: confluentinc
+            version: 0.5.2
+  dependencies:
+    kafka:
+      bootstrapEndpoint: kafka:9071 
+ 

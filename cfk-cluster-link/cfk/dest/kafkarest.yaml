@@ -1,0 +1,10 @@
+apiVersion: platform.confluent.io/v1beta1
+kind: KafkaRestClass
+metadata:
+  name: destination-kafka-rest
+  namespace: dest
+spec:
+  kafkaClusterRef:
+    name: kafka
+  kafkaRest:
+    endpoint: http://kafka.dest.svc.cluster.local:8090

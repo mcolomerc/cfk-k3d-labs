@@ -1,0 +1,18 @@
+apiVersion: platform.confluent.io/v1beta1
+kind: ClusterLink
+metadata:
+  name: cl-demo
+  namespace: dest
+spec: 
+  destinationKafkaCluster:
+    bootstrapEndpoint: kafka.dest.svc.cluster.local:9092
+    kafkaRestClassRef:
+      name: destination-kafka-rest
+      namespace: dest
+  sourceKafkaCluster:
+    bootstrapEndpoint: kafka.source.svc.cluster.local:9092
+    kafkaRestClassRef:
+      name: source-kafka-rest
+      namespace: source
+  mirrorTopics:
+  - name: pageviews
