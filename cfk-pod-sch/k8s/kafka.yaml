@@ -1,0 +1,38 @@
+apiVersion: platform.confluent.io/v1beta1
+kind: Kafka
+metadata:
+  name: kafka
+  namespace: confluent
+spec: 
+  replicas: 3
+  image:
+    application: confluentinc/cp-server:7.2.0
+    init: confluentinc/confluent-init-container:2.4.0
+  dataVolumeCapacity: 2Gi
+  metricReporter:
+    enabled: true
+  podTemplate:
+    tolerations:
+    - key: "workloadType"
+      operator: "Equal"
+      value: "confluent"
+      effect: "NoSchedule"
+    affinity:
+      podAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+         - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - zookeeper
+           topologyKey: "kubernetes.io/hostname"
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - kafka
+            topologyKey: "kubernetes.io/hostname"

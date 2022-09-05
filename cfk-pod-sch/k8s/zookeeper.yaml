@@ -1,0 +1,19 @@
+apiVersion: platform.confluent.io/v1beta1
+kind: Zookeeper
+metadata:
+  name: zookeeper
+  namespace: confluent
+spec:
+  replicas: 3
+  oneReplicaPerNode: true
+  image:
+    application: confluentinc/cp-zookeeper:7.2.0
+    init: confluentinc/confluent-init-container:2.4.0
+  dataVolumeCapacity: 2Gi
+  logVolumeCapacity: 2Gi 
+  podTemplate:
+    tolerations:
+    - key: "workloadType"
+      operator: "Equal"
+      value: "confluent"
+      effect: "NoSchedule"
