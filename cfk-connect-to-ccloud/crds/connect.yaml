@@ -1,0 +1,46 @@
+apiVersion: platform.confluent.io/v1beta1
+kind: Connect
+metadata:
+  name: connect
+  namespace: confluent
+spec:
+  replicas: 2
+  image:
+    application: confluentinc/cp-server-connect:7.2.0
+    init: confluentinc/confluent-init-container:2.4.0
+  build:
+    type: onDemand
+    onDemand:
+      plugins:
+        locationType: confluentHub
+        confluentHub:
+          - name: kafka-connect-datagen
+            owner: confluentinc
+            version: 0.5.2
+  configOverrides:
+    server: 
+    - security.protocol=SASL_SSL 
+    - ssl.endpoint.identification.algorithm=https
+    - sasl.mechanism=PLAIN 
+    - client.dns.lookup=use_all_dns_ips 
+    # Best practice for higher availability in Apache Kafka clients prior to 3.0
+    - session.timeout.ms=45000 
+    # Best practice for Kafka producer to prevent data loss
+    - acks=all  
+  dependencies:
+    schemaRegistry:
+      url: <SCHEMA_REGISTRY_URL>
+      authentication:
+        type: basic
+        basic:
+          secretRef: ccloud-sr-credentials
+    kafka:
+      bootstrapEndpoint: <CCLOUD_CLUSTER_URL>
+      authentication:
+        type: plain
+        jaasConfig:
+          secretRef: ccloud-credentials
+      tls:
+        enabled: true
+        ignoreTrustStoreConfig: true 
+    

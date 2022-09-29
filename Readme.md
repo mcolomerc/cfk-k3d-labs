@@ -24,6 +24,11 @@
   - Connect (Datagen source connector)
   - Consumer app
 
+- [Connect to Confluent Cloud](cfk-connect-to-ccloud/Readme.md)
+  
+  - Connect
+  - Connector (Datagen source connector) + Avro
+  
 --- 
 
 [CFK Examples](https://github.com/confluentinc/confluent-kubernetes-examples)
