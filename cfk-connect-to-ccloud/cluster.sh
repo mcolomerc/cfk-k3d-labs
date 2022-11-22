@@ -30,6 +30,7 @@ helm upgrade --install prometheus prometheus-community/prometheus  \
 echo "Installing Grafana"
 helm upgrade --install grafana grafana/grafana --namespace default --values ./grafana/values.yaml
 kubectl apply -f ./crds/ingress.yaml
+kubectl apply -f ./grafana/grafana.yaml
 
 ## Credentials 
 kubectl -n confluent create secret generic ccloud-credentials --from-file=plain.txt=ccloud-credentials.txt  
