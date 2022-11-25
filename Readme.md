@@ -28,7 +28,11 @@
   
   - Connect
   - Connector (Datagen source connector) + Avro
+
+- [Schemas to Confluent Cloud](cfk-schemas-to-ccloud/Readme.md)
   
---- 
+  - Manage and Deploy Schemas to Confluent Cloud Schema Registry.
+  
+---
 
 [CFK Examples](https://github.com/confluentinc/confluent-kubernetes-examples)
