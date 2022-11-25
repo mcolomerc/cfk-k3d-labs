@@ -1,0 +1,2 @@
+username=<CCLOUD_API_KEY>
+password=<CCLOUD_API_SECRET>

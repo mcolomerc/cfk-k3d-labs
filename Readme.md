@@ -32,6 +32,10 @@
 - [Schemas to Confluent Cloud](cfk-schemas-to-ccloud/Readme.md)
   
   - Manage and Deploy Schemas to Confluent Cloud Schema Registry.
+
+- [Topics to Confluent Cloud](cfk-topics-to-ccloud/Readme.md)
+  
+  - Manage and Deploy Topics to Confluent Cloud.
   
 ---
 
