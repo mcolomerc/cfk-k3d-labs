@@ -1,0 +1,16 @@
+apiVersion: platform.confluent.io/v1beta1
+kind: Schema
+metadata:
+  name: payment-value
+  namespace: confluent
+spec:
+  data:
+    configRef: schema-config
+    format: avro
+  schemaRegistryRest:
+    endpoint: <CCLOUD_SR_ENDPOINT>    
+    authentication:
+      type: basic                  
+      basic:
+        secretRef: ccloud-sr-credentials                
+        
