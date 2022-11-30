@@ -1,0 +1,11 @@
+apiVersion: platform.confluent.io/v1beta1
+kind: Schema
+metadata:
+  name: payment-color-value
+  namespace: confluent
+spec:
+  data:
+    configRef: schema-config
+    format: avro
+  schemaRegistryClusterRef:
+    name: schemaregistry

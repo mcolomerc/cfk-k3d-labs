@@ -1,0 +1,21 @@
+apiVersion: platform.confluent.io/v1beta1
+kind: SchemaExporter
+metadata:
+  name: payment-schema-exporter
+  namespace: confluent
+spec:
+  sourceCluster:
+    schemaRegistryClusterRef:
+      name: schemaregistry
+      namespace: confluent
+  destinationCluster:
+    schemaRegistryRest:
+      endpoint: <CCLOUD_SR_ENDPOINT>
+      authentication:
+        type: basic
+        basic:
+          secretRef: ccloud-sr-credentials
+  subjects:
+  - payment-color-value
+  contextName: payment
+  contextType: NONE
