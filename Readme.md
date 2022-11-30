@@ -36,6 +36,10 @@
 - [Topics to Confluent Cloud](cfk-topics-to-ccloud/Readme.md)
   
   - Manage and Deploy Topics to Confluent Cloud.
+
+- [Schema Link to Confluent Cloud](cfk-schema-link-to-ccloud/Readme.md)
+  
+  - Manage Schema Registry exporters to Confluent Cloud.
   
 ---
 
