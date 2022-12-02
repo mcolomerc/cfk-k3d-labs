@@ -40,6 +40,10 @@
 - [Schema Link to Confluent Cloud](cfk-schema-link-to-ccloud/Readme.md)
   
   - Manage Schema Registry exporters to Confluent Cloud.
+
+- [Policy as Code with CFK and Kyverno](cfk-kyverno-pac/Readme.md)
+  
+  - Enforce policy rules. Example with maximum number of partitions for a `KafkaTopic`.
   
 ---
 
