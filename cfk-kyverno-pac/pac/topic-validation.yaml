@@ -1,0 +1,19 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: topic-number-partitions
+spec:
+  validationFailureAction: enforce
+  rules:
+  - name: topic-number-partitions
+    match:
+      any:
+      - resources:
+          kinds:
+          - KafkaTopic
+    validate:
+      message: The number of partitions for a Topic can not be greater than 5!
+      pattern:
+        spec:
+          partitionCount: "<=5"
+           
