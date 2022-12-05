@@ -30,4 +30,4 @@ kubectl apply -f ./crds/schemaregistry.yaml
 
 # Rules 
 echo "Kyverno rules..."
-kubectl apply -f ./psc/topic-validation.yaml
+kubectl apply -f ./pac/topic-validation.yaml
