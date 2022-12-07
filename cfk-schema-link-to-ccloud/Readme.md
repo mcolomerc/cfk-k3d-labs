@@ -16,3 +16,13 @@ Export Schemas to Confluent Cloud using CFK SchemaExporter
 ```sh
 ./cluster.sh
 ```
+
+## Configure Number of Exporters
+
+To allow for more than `10` exporters (the default maximum) to be created, you can set
+
+```yaml
+  configOverrides: 
+    server:
+      - exporter.max.exporters=20
+```
