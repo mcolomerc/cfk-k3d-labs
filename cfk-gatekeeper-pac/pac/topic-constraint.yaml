@@ -1,0 +1,12 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: KakfaTopicPartitions
+metadata:
+  name: topic-partitions-constraint
+spec:
+  match: 
+    kinds:
+      - apiGroups: ["platform.confluent.io"] 
+        kinds: ["KafkaTopic"]
+  parameters:
+    maxPartitions: 5
+ 
