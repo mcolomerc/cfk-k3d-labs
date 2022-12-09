@@ -44,7 +44,11 @@
 - [Policy as Code with CFK and Kyverno](cfk-kyverno-pac/Readme.md)
   
   - Enforce policy rules. Example with maximum number of partitions for a `KafkaTopic`.
+
+- [Policy as Code with CFK and Gatekeeper](cfk-gatekeeper-pac/Readme.md)
   
+  - Enforce policy rules. Example with maximum number of partitions for a `KafkaTopic`.
+   
 ---
 
 [CFK Examples](https://github.com/confluentinc/confluent-kubernetes-examples)
