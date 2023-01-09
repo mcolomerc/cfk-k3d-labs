@@ -48,6 +48,10 @@
 - [Policy as Code with CFK and Gatekeeper](cfk-gatekeeper-pac/Readme.md)
   
   - Enforce policy rules. Example with maximum number of partitions for a `KafkaTopic`.
+  
+- [SQL Server + Debezium + Connect](cfk-connect-dbz/Readme.md)
+  
+  - SQL Server CDC with Debezium connector.
    
 ---
 
