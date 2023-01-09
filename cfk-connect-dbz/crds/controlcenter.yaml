@@ -1,0 +1,39 @@
+apiVersion: platform.confluent.io/v1beta1
+kind: ControlCenter
+metadata:
+  name: controlcenter
+  namespace: confluent
+spec:
+  replicas: 1
+  image:
+    application: confluentinc/cp-enterprise-control-center:7.3.0
+    init: confluentinc/confluent-init-container:2.5.0
+  dataVolumeCapacity: 10Gi
+  configOverrides:
+    server:
+      - confluent.controlcenter.command.topic.replication=1
+      - confluent.controlcenter.replication.factor=1
+      - confluent.metrics.reporter.topic.replicas=1
+      - confluent.metrics.topic.replication=1
+      - confluent.monitoring.interceptor.topic.replication=1
+      - confluent.controlcenter.internal.topics.replication=1 
+  podTemplate:
+    resources:
+      requests:
+        cpu: 500m
+        memory: 512Mi
+    probe:
+      liveness:
+        periodSeconds: 10
+        failureThreshold: 5
+        timeoutSeconds: 500
+    podSecurityContext:
+      fsGroup: 1000
+      runAsUser: 1000
+      runAsNonRoot: true
+  dependencies:
+    schemaRegistry:
+      url: http://schemaregistry.confluent.svc.cluster.local:8081 
+    connect:
+    - name: connect-dev
+      url:  http://connect.confluent.svc.cluster.local:8083

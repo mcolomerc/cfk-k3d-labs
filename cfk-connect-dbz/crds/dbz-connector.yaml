@@ -1,0 +1,20 @@
+apiVersion: platform.confluent.io/v1beta1
+kind: Connector
+metadata:
+  name: inventory-connector
+  namespace: confluent
+spec:
+  class: "io.debezium.connector.sqlserver.SqlServerConnector"
+  taskMax: 1
+  connectClusterRef:
+    name: connect
+  configs:
+    database.server.name: "testDB"
+    database.hostname: "mssql-latest-deploy.default.svc.cluster.local"
+    database.port: "1433"
+    database.user: "sa"
+    database.password: "Toughpass1!"
+    database.dbname: "testDB" 
+    database.history.kafka.bootstrap.servers: "kafka:9092"
+    database.history.kafka.topic: "schema-changes.inventory"
+ 
