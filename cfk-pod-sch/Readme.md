@@ -2,9 +2,15 @@
 
 Reduce the risk of privilege escalation attacks in your cluster by telling Kubernetes to schedule your CFK workloads on nodes with certain capabilities.
 
-Performance does not only mean that most messages are delivered with super low-latency or super high-throughput. It also means that the performance of the cluster is constant in time and without any significant spikes. 
+Performance does not only mean that most messages are delivered with super low-latency or super high-throughput. It also means that the performance of the cluster is constant in time and without any significant spikes.
 
 Noisy neighbours are just one possible cause of performance issues.
+
+## Versions
+
+* Confluent version used: `7.3.0`
+
+* Weave Scope version used: `v1.13.2`
 
 ## One Replica per Node
 
@@ -16,7 +22,7 @@ A _node taint_ lets you mark a _node_ so that the scheduler avoids or preven
 
 ```kubectl taint node k3d-local-cluster-agent-0 workloadType=confluent:NoSchedule```
 
-With the following CR snippet matches the taint created above, and the pod **can be schedule** onto the node:
+With the following CR snippet matches the taint created above, and the pod **can be scheduled** onto the node:
 
 ```yaml
 spec:
@@ -79,13 +85,22 @@ Affinities are used to express Pod scheduling constraints that can match charact
 7. Deploy Kafka (```./k8s/kafka.yaml```)
 
 8. Deploy [Weave Scope](https://www.weave.works/docs/scope/latest/installing/#k8s) to inspect inbound and outbound traffic.
+
    Port Forward Weave Scope to <http://localhost:4040>
+
+   _The script will fail on this step if the pod is not ready yet. Just run the command again._
+
+   `kubectl port-forward -n weave "$(kubectl get -n weave pod --selector=weave-scope-component=app -o jsonpath='{.items..metadata.name}')" 4040`
 
     ![Weave Scope](../docs/outbound.png)
 
+### Check the deployment status
+
+* All pods: `kubectl get pod -A`
+
+* Confluent Pods: `kubectl get pod -n confluent`
 
 ### Clean Up
 
-```sh
-./cleanup.sh
-```
+` ./cleanup.sh `
+ 

@@ -24,9 +24,7 @@ echo "PODs (Confluent namespace) topology by Node"
 kubectl get pod -o=custom-columns=NODE:.spec.nodeName,NAME:.metadata.name -n confluent
 
 echo "Deploy Weave Scope" 
-kubectl apply -f "https://cloud.weave.works/k8s/scope.yaml?k8s-version=$(kubectl version | base64 | tr -d '\n')"  
-kubectl port-forward -n weave "$(kubectl get -n weave pod --selector=weave-scope-component=app -o jsonpath='{.items..metadata.name}')" 4040
-echo "The URL is: http://localhost:4040"
+kubectl apply -f https://github.com/weaveworks/scope/releases/download/v1.13.2/k8s-scope.yaml 
 
 echo "Zookeeper topology by Node (Tolerations)"
 kubectl apply -f ./k8s/zookeeper.yaml
@@ -34,3 +32,5 @@ kubectl apply -f ./k8s/zookeeper.yaml
 echo "Kafka topology by Node. (Tolerations + PodAffinity & PodAntiAffinity)"
 kubectl apply -f ./k8s/kafka.yaml
 
+echo "The URL is: http://localhost:4040"
+kubectl port-forward -n weave "$(kubectl get -n weave pod --selector=weave-scope-component=app -o jsonpath='{.items..metadata.name}')" 4040
