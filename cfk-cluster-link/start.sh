@@ -28,7 +28,7 @@ echo "----------------------------"
 kubectl create namespace confluent
 
 # Setup the CFK Operator 
-echo "\n Source cluster - Installing the CFK Operator"
+echo "\n Installing the CFK Operator"
 echo "----------------------------"
 helm repo add confluentinc https://packages.confluent.io/helm
 helm repo update
@@ -38,20 +38,36 @@ helm upgrade --install confluent-operator \
 
 echo "\n CFKs - Deployment..."
 echo "----------------------------"
+echo "----------------------------"
 
+echo "\n Source cluster "
+echo "----------------------------"
 kubectl create namespace source
-# helm upgrade -f ./cfk/cfk-values.yaml --install confluent-operator confluentinc/confluent-for-kubernetes  --namespace source 
+ 
 kubectl apply -f ./cfk/source  
 
+echo "\n Destination cluster "
+echo "----------------------------"
 kubectl create namespace dest
-# helm upgrade -f ./cfk/cfk-values.yaml --install confluent-operator confluentinc/confluent-for-kubernetes  --namespace dest  
+  
 kubectl apply -f ./cfk/dest  
+
+echo "----------------------------"
 
 echo "\n Source cluster - Get Topic ..."
 echo "----------------------------"
-kubectl get topic -n source
-
+kubectl get topic -n source 
 
 echo "\n Source cluster - Get Connect ..."
 echo "----------------------------"
 kubectl get connect -n source  
+
+echo "\n Control Center - Deployment..."
+echo "----------------------------"
+kubectl apply -f ./cfk/confluent/controlcenter.yaml
+
+echo "\n Control Center - Ingress ..."
+echo "----------------------------"
+kubectl apply -f ./cfk/confluent/ingress.yaml
+
+echo "Open the Control Center UI at http://localhost:9900"

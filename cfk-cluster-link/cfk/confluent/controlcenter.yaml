@@ -1,0 +1,24 @@
+apiVersion: platform.confluent.io/v1beta1
+kind: ControlCenter
+metadata:
+  name: controlcenter
+  namespace: confluent
+spec: 
+  configOverrides:
+    server:
+      - confluent.controlcenter.internal.topics.replication=1
+      - confluent.controlcenter.command.topic.replication=1
+      - confluent.monitoring.interceptor.topic.replication=1
+      - confluent.metrics.topic.replication=1
+  replicas: 1
+  image:
+    application: confluentinc/cp-enterprise-control-center:7.3.0
+    init: confluentinc/confluent-init-container:2.5.0
+  dataVolumeCapacity: 10Gi 
+  dependencies:
+    kafka:
+      bootstrapEndpoint: kafka.source.svc.cluster.local:9071
+  monitoringKafkaClusters:
+    - name: destination
+      bootstrapEndpoint: kafka.dest.svc.cluster.local:9071
+      

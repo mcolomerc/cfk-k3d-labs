@@ -14,5 +14,11 @@ spec:
     kafkaRestClassRef:
       name: source-kafka-rest
       namespace: source
-  mirrorTopics:
-  - name: pageviews
+  mirrorTopicOptions:
+    autoCreateTopics: 
+      enabled: true
+      topicFilters: 
+        - filterType: INCLUDE
+          name: 'pageviews'
+          patternType: LITERAL
+     
