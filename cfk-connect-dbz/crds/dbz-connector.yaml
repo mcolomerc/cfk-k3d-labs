@@ -1,7 +1,7 @@
 apiVersion: platform.confluent.io/v1beta1
 kind: Connector
 metadata:
-  name: inventory-connector
+  name: customers-connector
   namespace: confluent
 spec:
   class: "io.debezium.connector.sqlserver.SqlServerConnector"
@@ -9,12 +9,15 @@ spec:
   connectClusterRef:
     name: connect
   configs:
-    database.server.name: "testDB"
+    database.server.name: "testdb"
     database.hostname: "mssql-latest-deploy.default.svc.cluster.local"
     database.port: "1433"
     database.user: "sa"
     database.password: "Toughpass1!"
-    database.dbname: "testDB" 
+    database.dbname: "testdb" 
     database.history.kafka.bootstrap.servers: "kafka:9092"
     database.history.kafka.topic: "schema-changes.inventory"
+    # table.include.list: "testdb.dbo.customers"
+    # topic.prefix: "testdb"
+    database.encrypt: "false"
  

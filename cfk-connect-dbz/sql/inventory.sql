@@ -1,7 +1,7 @@
 -- Create the test database
-CREATE DATABASE testDB;
+CREATE DATABASE testdb;
 GO
-USE testDB;
+USE testdb;
 EXEC sys.sp_cdc_enable_db;
 
 -- Create some customers ...

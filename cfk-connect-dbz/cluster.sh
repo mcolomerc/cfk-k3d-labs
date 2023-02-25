@@ -20,9 +20,7 @@ helm repo add confluentinc https://packages.confluent.io/helm
 helm repo update
 helm upgrade --install confluent-operator confluentinc/confluent-for-kubernetes --namespace confluent   
 
-helm install mssql-latest-deploy ./mssql-helm-chart/. --set ACCEPT_EULA.value=Y --set MSSQL_PID.value=Developer --set pvc.StorageClass=local-path
-
-# /opt/mssql-tools/bin/sqlcmd -U sa -P Toughpass1!
+helm install mssql-latest-deploy ./mssql-helm-chart/. --set ACCEPT_EULA.value=Y --set MSSQL_PID.value=Developer --set pvc.StorageClass=local-path 
 
 kubectl apply -f ./crds/zookeeper.yaml
 kubectl apply -f ./crds/kafka.yaml 
@@ -32,10 +30,7 @@ kubectl apply -f ./crds/connect.yaml
 kubectl apply -f ./crds/controlcenter.yaml
 kubectl apply -f ./crds/ingress.yaml # http://localhost:8080/
 
-kubectl apply -f ./crds/dbz-connector.yaml 
+kubectl apply -f ./crds/dbz-connector.yaml   
  
-# kubectl describe svc/mssql-latest-deploy | grep -i nodeport
-# kubectl port-forward --namespace default svc/mssql-latest-deploy 31922:1433
-# topic > testDB.dbo.customers
 kubectl apply -f ./crds/topic.yaml
-# ./consumer/deploy.sh
+kubectl apply -f ./crds/topic-testdb.yaml

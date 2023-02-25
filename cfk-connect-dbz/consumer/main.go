@@ -13,7 +13,7 @@ func main() {
 
 	bootstrapServers := "kafka.confluent.svc.cluster.local:9092"
 	group := "dump-consumer"
-	topics := []string{"testDB.dbo.customers"}
+	topics := []string{"testdb.dbo.customers"}
 	sigchan := make(chan os.Signal, 1)
 	signal.Notify(sigchan, syscall.SIGINT, syscall.SIGTERM)
 
